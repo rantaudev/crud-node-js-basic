@@ -41,4 +41,17 @@ Member.findById = (id, result) => {
     });
 };
 
+Member.getAll = result => {
+    sql.query(`SELECT * FROM ${tableName}`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      console.log("members: ", res);
+      result(null, res);
+    });
+  };
+
 module.exports = Member;
