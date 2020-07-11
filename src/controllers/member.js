@@ -78,7 +78,7 @@ exports.update = (req, res) => {
         umur: req.body.umur,
         updated_at: format(new Date(), "yyyy-MM-dd kk:mm:ss")
       }),
-      
+
       (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
@@ -93,4 +93,33 @@ exports.update = (req, res) => {
         } else res.send(data);
       }
     );
+};
+
+// Delete a member with the specified id in the request
+exports.delete = (req, res) => {
+    Member.remove(req.params.id, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found member with id ${req.params.id}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Could not delete member with id " + req.params.id
+          });
+        }
+      } else res.send({ message: `member was deleted successfully!` });
+    });
   };
+  
+// Delete all members from the database.
+exports.deleteAll = (req, res) => {
+    Member.removeAll((err, data) => {
+        if (err)
+        res.status(500).send({
+            message:
+            err.message || "Some error occurred while removing all members."
+        });
+        else res.send({ message: `All members were deleted successfully!` });
+    });
+};

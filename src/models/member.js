@@ -77,4 +77,37 @@ Member.updateById = (id, member, result) => {
     );
 };
 
+Member.remove = (id, result) => {
+    sql.query(`DELETE FROM ${tableName} WHERE id = ?`, id, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      if (res.affectedRows == 0) {
+        // not found member with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+  
+      console.log("deleted member with id: ", id);
+      result(null, res);
+    });
+};
+  
+Member.removeAll = result => {
+    sql.query(`DELETE FROM ${tableName}`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      console.log(`deleted ${res.affectedRows} members`);
+      result(null, res);
+    });
+};
+  
+
 module.exports = Member;
