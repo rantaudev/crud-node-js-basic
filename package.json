@@ -4,7 +4,7 @@
   "description": "rantau dev NodeJS basic CRUD learning",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/server.js",
     "dev": "nodemon --watch src src/server.js",
     "format": "prettier --write \"src/**/*.js\" \"src/*.js\""
   },
