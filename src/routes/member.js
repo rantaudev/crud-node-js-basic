@@ -7,5 +7,7 @@ module.exports = app => {
     app.get("/members/:id", members.findOne);
     // Retrieve all members
     app.get("/members", members.findAll);
+    // Update a member with customerId
+    app.put("/members/:id", members.update);
 
   };

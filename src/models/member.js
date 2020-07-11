@@ -52,6 +52,29 @@ Member.getAll = result => {
       console.log("members: ", res);
       result(null, res);
     });
-  };
+};
+
+Member.updateById = (id, member, result) => {
+    sql.query(
+      `UPDATE ${tableName} SET nama = ?, umur = ?, updated_at = ? WHERE id = ?`,
+      [member.nama, member.umur, member.updated_at, id],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+        }
+  
+        if (res.affectedRows == 0) {
+          // not found member with the id
+          result({ kind: "not_found" }, null);
+          return;
+        }
+  
+        console.log("updated member: ", { id: id, ...member });
+        result(null, { id: id, ...member });
+      }
+    );
+};
 
 module.exports = Member;
