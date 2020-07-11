@@ -1,17 +1,18 @@
-module.exports = app => {
-    const members = require("../controllers/member.js");
-  
-    // Create a new member
-    app.post("/members", members.create);
-     // Retrieve a single member with id
-    app.get("/members/:id", members.findOne);
-    // Retrieve all members
-    app.get("/members", members.findAll);
-    // Update a member with id
-    app.put("/members/:id", members.update);
-    // Delete a member with id
-    app.delete("/members/:id", members.delete);
-    // Create a new member
-    app.delete("/members", members.deleteAll);
+// create new router
+const router = require("express").Router();
+const members = require("../controllers/member.js");
 
-  };
+// Create a new member
+router.post("/", members.create);
+// Retrieve a single member with id
+router.get("/:id", members.findOne);
+// Retrieve all members
+router.get("/", members.findAll);
+// Update a member with id
+router.put("/:id", members.update);
+// Delete a member with id
+router.delete("/:id", members.delete);
+// Delete all member
+router.delete("/", members.deleteAll);
+
+module.exports = router;
