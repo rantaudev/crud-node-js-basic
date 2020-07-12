@@ -23,6 +23,7 @@
     "mysql": "2.18.1"
   },
   "devDependencies": {
-    "nodemon": "2.0.4"
+    "nodemon": "2.0.4",
+    "prettier": "2.0.5"
   }
 }
