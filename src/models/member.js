@@ -3,7 +3,7 @@ const sql = require("./db.js");
 const tableName = "`member`";
 
 // constructor
-const Member = function(member) {
+const Member = function (member) {
   this.umur = member.umur;
   this.nama = member.nama;
   this.created_at = member.created_at;
@@ -11,7 +11,10 @@ const Member = function(member) {
 };
 
 Member.create = (member, result) => {
-  sql.query(`INSERT INTO ${tableName} (nama, umur, created_at, updated_at) VALUES (?, ?, ?, ?)`, [member.nama, member.umur, member.created_at, member.updated_at], (err, res) => {
+  sql.query(
+    `INSERT INTO ${tableName} (nama, umur, created_at, updated_at) VALUES (?, ?, ?, ?)`,
+    [member.nama, member.umur, member.created_at, member.updated_at],
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -20,7 +23,8 @@ Member.create = (member, result) => {
 
       console.log("created member: ", { id: res.insertId, ...member });
       result(null, { id: res.insertId, ...member });
-    });
+    }
+  );
 };
 
 Member.findById = (id, result) => {
@@ -42,7 +46,7 @@ Member.findById = (id, result) => {
   });
 };
 
-Member.getAll = result => {
+Member.getAll = (result) => {
   sql.query(`SELECT * FROM ${tableName}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -97,7 +101,7 @@ Member.remove = (id, result) => {
   });
 };
 
-Member.removeAll = result => {
+Member.removeAll = (result) => {
   sql.query(`DELETE FROM ${tableName}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
