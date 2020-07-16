@@ -1,9 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const path = require("path");
 dotenv.config();
 
 const app = express();
+
+// set the view engine to ejs
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
 
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
