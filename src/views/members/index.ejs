@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="mx-auto">
+    <header>
+      <%- include("../partials/header") %>
+    </header>
+
+    <form method="POST" action="./members" class="w-1/3 mx-auto bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          Nama
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="username"
+          required
+          name="nama"
+          type="text"
+        />
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+          Umur
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          required
+          id="umur"
+          name="umur"
+          type="number"
+        />
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-teal-500 w-full hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Simpan
+        </button>
+      </div>
+    </form>
+
+    <div class="p-8">
+      <table class="w-full mt-8 mb-8 table-auto">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Umur</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <% members.forEach(function(member, index) { %>
+        <tbody class="text-center">
+          <tr>
+            <td class="border px-4 py-2">
+              <%= index + 1 %>
+            </td>
+            <td class="border px-4 py-2">
+              <%= member.nama %>
+            </td>
+            <td class="border px-4 py-2">
+              <%= member.umur %>
+            </td>
+            <td class="border px-4 py-4">
+              <a
+                href="./members/<%= member.id %>"
+                class="bg-teal-500 hover:bg-teal-700 text-sm text-white py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline"
+              >
+                Edit
+              </a>
+              <a
+                onclick="rantaudev.delete(event, '<%= member.id %>')"
+                class="bg-red-500 hover:bg-red-700 text-sm text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Delete
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <% }); %>
+      </table>
+    </div>
+
+    <footer>
+      <%- include("../partials/footer") %>
+    </footer>
+  </body>
+  <script>
+    (function (window) {
+      if (window.rantaudev === undefined) {
+        window.rantaudev = {
+          delete: function (event, id) {
+            let confirmation = window.confirm("Apakah kamu yakin akan menghapus data?");
+
+            if (confirmation) {
+              let request = new XMLHttpRequest();
+              request.responseType = "json";
+              request.open("DELETE", `/members/${id}`, true);
+              request.send();
+
+              request.onload = function () {
+                if (request.status != 200) {
+                  // analyze HTTP status of the response
+                  alert(`Error ${request.status}: ${request.statusText}`); // e.g. 404: Not Found
+                } else {
+                  alert("Data berhasil dihapus");
+                  window.location = "/members";
+                }
+              };
+
+              request.onerror = function () {
+                alert("Request failed");
+              };
+            }
+          },
+        };
+      }
+    })(window);
+  </script>
+</html>
