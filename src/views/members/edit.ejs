@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="mx-auto">
+    <header>
+      <%- include("../partials/header") %>
+    </header>
+
+    <form
+      onsubmit="rantaudev.sendEditData(this, event, '<%= member.id %>' )"
+      id="edit-member"
+      class="w-1/3 mx-auto bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4"
+    >
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          Nama
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="username"
+          required
+          value="<%= member.nama %>"
+          name="nama"
+          type="text"
+        />
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+          Umur
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          required
+          id="umur"
+          value="<%= member.umur %>"
+          name="umur"
+          type="number"
+        />
+      </div>
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-teal-500 w-full hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+
+    <footer>
+      <%- include("../partials/footer") %>
+    </footer>
+  </body>
+  <script>
+    (function (window) {
+      if (window.rantaudev === undefined) {
+        window.rantaudev = {
+          sendEditData: function (form, event, id) {
+            event.preventDefault();
+
+            data = new URLSearchParams(new FormData(form)).toString();
+            let request = new XMLHttpRequest();
+
+            request.responseType = "json";
+            request.open("PUT", `/members/${id}`, true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(data);
+
+            request.onload = function () {
+              if (request.status != 200) {
+                // analyze HTTP status of the response
+                alert(`Error ${request.status}: ${request.statusText}`); // e.g. 404: Not Found
+              } else {
+                alert("Data berhasil diperbarui");
+                window.location = "/members";
+              }
+            };
+
+            request.onerror = function () {
+              alert("Request failed");
+            };
+          },
+        };
+      }
+    })(window);
+  </script>
+</html>
