@@ -4,6 +4,9 @@ Repo belajar Node.js CRUD menggunakan Mysql + Express
 # Deskripsi
 Repo ini merupakan bahan diskusi teman-teman rantaudev dalam memulai pengembangan berbasis nodejs
 
+# Screenshot
+![rantaudev roadmap](/docs/screenshot.png)
+
 # How to install
 
 Pastikan nodejs sudah terpasang pada lokal Anda. Pastikan juga npm juga terpasang. Anda bisa mengunjungi halaman [ini](https://nodejs.org/en/download/) untuk instalasi nodejs. Jika Anda baru memulai memakai npm, silahkan kunjungi halaman [ini](https://www.npmjs.com/get-npm).
