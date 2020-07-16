@@ -24,7 +24,7 @@ exports.create = (req, res) => {
       res.status(500).send({
         message: err.message || "Some error occurred while creating the Customer.",
       });
-    else res.send(data);
+    else res.redirect("/members");
   });
 };
 
@@ -41,7 +41,7 @@ exports.findOne = (req, res) => {
           message: "Error retrieving Customer with id " + req.params.id,
         });
       }
-    } else res.send(data);
+    } else res.render("members/edit", { member: data });
   });
 };
 
@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
       res.status(500).send({
         message: err.message || "Some error occurred while retrieving customers.",
       });
-    else res.send(data);
+    else res.render("members/index", { members: data });
   });
 };
 
