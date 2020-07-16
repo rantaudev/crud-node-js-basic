@@ -18,3 +18,4 @@ Pada folder root project. Silahkan jalankan perintah di bawah (via command line)
 
 1. [Github bezkoder](https://github.com/bezkoder/nodejs-express-mysql_=)
 2. [Tutorial bezkoder](https://bezkoder.com/node-js-rest-api-express-mysql)
+3. [Scotch.io](https://scotch.io/tutorials/use-ejs-to-template-your-node-application)
